@@ -90,6 +90,8 @@ $(document).ready(function () {
       // make slide carousel for explore slider
       this.exploreSliderCarousel();
 
+      // open modal iframe when click to MV
+      this.openModalIframe();
     },
     handleWithPluin: function () {
       // slick
@@ -696,13 +698,14 @@ $(document).ready(function () {
       $("#render__personal-Album").html(albums.join(""));
     },
     renderPersonalMV: function () {
-      let MVs = Home.PersonalMV.map((mv, index) => {
+      let MVs = Home.listIframes.map((mv, index) => {
         return `
         <div class="MV__item col-lg-4">
+          <div class="MV__item-dataUrl" data-url="${mv.url}"></div>
           <div class="MV__item-image position-relative">
-              <img src="${mv.MvImage}" alt="">
+              <img src="${mv.thumbnail}" alt="">
               <div class="MV__item-overlay position-absolute">
-                  <a href="${mv.MvSource}" class="MV__item-play position-absolute">
+                  <a href="#" class="MV__item-play position-absolute">
                       <i id="MV-play-icon" class="bi bi-play-circle"></i>
                   </a>
                   <div class="MV__item-duration position-absolute">
@@ -716,11 +719,11 @@ $(document).ready(function () {
           <div class="MV__item-desc">
               <div class="d-lg-flex align-items-center">
                   <div class="MV__item-avartar">
-                      <img src="${mv.AuthorAvatar}" alt="">
+                      <img src="${mv.thumbnail}" alt="">
                   </div>
                   <div class="MV__item-content">
-                      <h3 class="MV__item-title">${mv.MvName}</h3>
-                      <p class="MV__item-author">${mv.MvAuthor}</p>
+                      <h3 class="MV__item-title">${mv.title}</h3>
+                      <p class="MV__item-author">${mv.author}</p>
                   </div>
               </div>
           </div>
@@ -1498,6 +1501,19 @@ $(document).ready(function () {
     removePlayingIcon: function () {
       $(".song__icon-pause").addClass("d-none");
       $(".song__icon-playing").addClass("d-none");
+    },
+    openModalIframe: function() {
+      $(".MV__item").unbind().click(function(e) {
+        const _this = this;
+        const container = $(_this).find(".MV__item-dataUrl");
+        const iframeUrl = $(container).data("url");
+        $(".iframe-mv").attr("src", iframeUrl)
+        $(".modal-iframe").addClass("open");
+      })
+      $(".modal-iframe").unbind().click(function(e) {
+        $(".modal-iframe").removeClass("open");
+
+      })
     },
   };
 

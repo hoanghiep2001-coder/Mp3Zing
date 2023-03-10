@@ -765,11 +765,6 @@ var Home = (function () {
         name: "London",
         dataTheme: "blueLondon",
       },
-      // {
-      //   image: "../Content/image/Layout/t1-logo.png",
-      //   name: "T1",
-      //   dataTheme: "redT1",
-      // },
     ],
     ArtistLayoutTheme: [
       {
@@ -1078,6 +1073,102 @@ var Home = (function () {
 
       ]
     },
+    listIframes: [
+      {
+        id: 1,
+        title: "Chỉ Là Muốn Nói (300) - Khải",
+        author: "Khải",
+        view: "12 Tr luot xem",
+        dayPass: "1 năm trước",
+        MvDuration: "03:50",
+        url: "https://www.youtube.com/embed/uUB7wnWeMdM",
+        thumbnail: "https://i.ytimg.com/vi/uUB7wnWeMdM/sddefault.jpg",
+      },
+      {
+        id: 2,
+        title:
+          "Người Em Từng Yêu - Ngân Ngân | Official Music Video 4k - Người Từng Làm Em Khóc...",
+        author: "Ngân Ngân",
+        view: "2,8 Tr lượt xem",
+        dayPass: "5 tháng trước",
+        MvDuration: "03:50",
+        url: "https://www.youtube.com/embed/UylGrTfmHBU?list=RDC4QhZvTqhnI",
+        thumbnail: "https://i.ytimg.com/vi/UylGrTfmHBU/maxresdefault.jpg",
+      },
+      {
+        id: 3,
+        title: "THICHTHICH - PHƯƠNG LY | OFFICIAL MV",
+        author: "PHƯƠNG LY",
+        view: "19 Tr luot xem",
+        dayPass: "6 tháng trước",
+        MvDuration: "03:50",
+        url: "https://www.youtube.com/embed/OqdA6DKV1Fs",
+        thumbnail: "https://i.ytimg.com/vi/OqdA6DKV1Fs/maxresdefault.jpg",
+      },
+      {
+        id: 4,
+        title: "NÀNG THƠ x YẾU ĐUỐI | Hoàng Dũng ft. Khán giả [at CONCERT 25]",
+        author: "Hoàng Dũng",
+        view: "10 Tr luot xem",
+        dayPass: "2 năm trước",
+        MvDuration: "03:50",
+        url: "https://www.youtube.com/embed/GRWNTUThd1I",
+        thumbnail: "https://i.ytimg.com/vi/GRWNTUThd1I/maxresdefault.jpg",
+      },
+  
+      {
+        id: 5,
+        title:
+          "ANH CỨ BƯỚC ĐI ĐI REMIX TIKTOK | Tú Na Cover x DJ Trang Moon | Ân Tình Sang Trang Remix",
+        author: "Tú Na Cover x DJ Trang Moon",
+        view: "1.1 Tr luot xem",
+        dayPass: "2 tháng trước",
+        MvDuration: "03:50",
+        url: "https://www.youtube.com/embed/MH4jbv32kMY",
+        thumbnail: "https://i.ytimg.com/vi/MH4jbv32kMY/maxresdefault.jpg",
+      },
+
+      {
+        id: 6,
+        title:
+          "TỪNG THƯƠNG REMIX | Phan Duy Anh ft DJ Trang Moon | Vì quá yêu em nên anh mang hết duyên mình...",
+        author: "Phan Duy Anh ft DJ Trang Moon",
+        view: "1.1 Tr luot xem",
+        dayPass: "2 tháng trước",
+        MvDuration: "03:50",
+        url: "https://www.youtube.com/embed/bajY1LZD0go",
+        thumbnail: "https://i.ytimg.com/vi/bajY1LZD0go/maxresdefault.jpg",
+      },
+    ],
+    iframeUrl: [
+      {
+        id: 1,
+        url: "https://www.youtube.com/embed/uUB7wnWeMdM",
+        title: "Chỉ Là Muốn Nói (300) - Khải",
+      },
+      {
+        id: 2,
+        url: "https://www.youtube.com/embed/UylGrTfmHBU?list=RDC4QhZvTqhnI",
+        title:
+          "Người Em Từng Yêu - Ngân Ngân | Official Music Video 4k - Người Từng Làm Em Khóc...",
+      },
+      {
+        id: 3,
+        url: "https://www.youtube.com/embed/OqdA6DKV1Fs",
+        title: "THICHTHICH - PHƯƠNG LY | OFFICIAL MV",
+      },
+      {
+        id: 4,
+        url: "https://www.youtube.com/embed/GRWNTUThd1I",
+        title: "NÀNG THƠ x YẾU ĐUỐI | Hoàng Dũng ft. Khán giả [at CONCERT 25]",
+      },
+      {
+        id: 5,
+        url: "https://www.youtube.com/embed/MH4jbv32kMY",
+        title:
+          "ANH CỨ BƯỚC ĐI ĐI REMIX TIKTOK | Tú Na Cover x DJ Trang Moon | Ân Tình Sang Trang Remix",
+      },
+    ],
     clickAddClass: function($selector, $className) {
       $selector.unbind().click(function (e) {
         e.stopPropagation();

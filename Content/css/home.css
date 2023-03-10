@@ -512,6 +512,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .container-default .container__right-body #mv #render__personal-MV .MV__item-desc .MV__item-content {
