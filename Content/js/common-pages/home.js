@@ -1410,6 +1410,7 @@ $(document).ready(function () {
             $(".container__right-personal").addClass("active");
             _this.UsingSlickSliderPlugin(false);
             _this.UsingSlickSliderPlugin(true);
+            _this.openPlaylistInPlaylistTrack();
             _this.renderMyPlayListSongs();
             _this.handleMp3Event();
           } else if (tapExplore) {
