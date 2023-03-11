@@ -968,6 +968,32 @@ var Home = (function () {
         dataPlaylist: ""
       },
     ],
+    ExploreCarousel: [
+      { 
+        id: 1,
+        imgSrc: "../Content/image/Playlist/Explore/Slider/item1.jpg"
+      },
+      { 
+        id: 2,
+        imgSrc: "../Content/image/Playlist/Explore/Slider/item2.jpg"
+      },
+      { 
+        id: 3,
+        imgSrc: "../Content/image/Playlist/Explore/Slider/item3.jpg"
+      },
+      { 
+        id: 4,
+        imgSrc: "../Content/image/Playlist/Explore/Slider/item4.jpg"
+      },
+      { 
+        id: 5,
+        imgSrc: "../Content/image/Playlist/Explore/Slider/item5.jpg"
+      },
+      { 
+        id: 6,
+        imgSrc: "../Content/image/Playlist/Explore/Slider/item6.jpg"
+      },
+    ],
     ExploreSuggestList: [
       {
         image: "../Content/image/Playlist/Explore/Suggest/ballad.webp",

@@ -46,6 +46,9 @@ $(document).ready(function () {
       // render maybe you care playlist
       this.renderMaybeYouCarePlaylist();
 
+      // render explore carousel 
+      this.renderExploreCarousel();
+
       // render explore suggest playlist
       this.renderExploreSuggestPlaylist();
 
@@ -1090,6 +1093,26 @@ $(document).ready(function () {
         $(".explore__musicForDays-title").html("Cuối Tuần Lên Nhạc");
       }
     },
+    renderExploreCarousel: function() {
+      let htmls = Home.ExploreCarousel.map((item, index) => {
+        return `
+        <div
+        class="explore__slider-item col-lg-4"
+        data-number="${index}"
+        data-actived="true"
+        data-numerical="first"
+      >
+        <img
+          src="${item.imgSrc}"
+          alt=""
+        />
+      </div>
+        `
+      });
+
+      $("#explore-carousel").html(htmls.join(""));
+    },
+
 
     // function
     getDataTheme: function () {
@@ -1408,7 +1431,10 @@ $(document).ready(function () {
 
           if (tapPersonal) {
             $(".container__right-personal").addClass("active");
+            // remove slick from start scene
             _this.UsingSlickSliderPlugin(false);
+
+            // add slick to fix hidden content and unable click event
             _this.UsingSlickSliderPlugin(true);
             _this.openPlaylistInPlaylistTrack();
             _this.renderMyPlayListSongs();
