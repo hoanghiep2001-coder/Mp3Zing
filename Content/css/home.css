@@ -1305,25 +1305,29 @@ body {
 
 #container__right .container__right-track .song .song__img,
 .container__right-body #myTabContent #my-playlist .song .song__img{
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
   object-fit: cover;
 }
 
 #container__right .container__right-track .song .song__icon,
 .container__right-body #myTabContent #my-playlist .song .song__icon {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 #container__right .container__right-track .song .song__icon .song__icon-playing,
 .container__right-body #myTabContent #my-playlist .song .song__icon .song__icon-playing {
   width: 50%;
-  margin-left: 10px;
+  /* margin-left: 10px;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 10px; */
 }
 
 #container__right .container__right-track .song #song__author,
@@ -1358,6 +1362,19 @@ body {
   background-repeat: no-repeat;
 }
 
+.container__player #song-desc {
+  width: 30%;
+  /* height: 100%; */
+}
+
+.container__player #song-desc .player__desc {
+  width: 100%;
+}
+
+.container__player #song-desc .player__desc .player__desc-name {
+  margin: 0 16px;
+}
+
 .container__player .player__desc-img img {
   width: 64px;
   height: 64px;
@@ -1387,14 +1404,35 @@ body {
 max-width: 174px;
 }
 
-.container__player .player__control-buttons {
+.container__player #player-control {
+  width: 40%;
+}
+
+.container__player #player-control .player__control {
+  width: 100%;
+}
+
+.container__player #player-control .player__control-buttons {
   height: 50px;
+}
+
+.container__player #player-actions {
+  width: 30%;
+}
+
+.container__player #player-actions .player__service-icon {
+  margin: 0 12px;
+}
+
+.container__player .player__control-progress #progress {
+  width: 100%;
 }
 
 .container__player .player__service #volumn,
 .container__player .player__control-progress #progress #range {
   -webkit-appearance: none;
-  width: 386px;
+  /* width: 386px; */
+  width: 100%;
   height: 5px;
   outline: none;
   opacity: 1;
@@ -1429,5 +1467,7 @@ max-width: 174px;
   border-radius: 8px;
   padding: 0 8px;
 }
+
+
 /* -------- end player ---------- */
 

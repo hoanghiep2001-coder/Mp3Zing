@@ -95,9 +95,12 @@ $(document).ready(function () {
     },
     handleWithPluin: function () {
       // slick
-      this.UsingSlickSliderPlugin();
+      this.UsingSlickSliderPlugin(true);
     },
-    UsingSlickSliderPlugin: function () {
+    UsingSlickSliderPlugin: function (boolean) {
+
+      if(boolean) {
+        
       $("#render-artist").slick({
         slidesToShow: 5,
         autoplay: true,
@@ -127,11 +130,21 @@ $(document).ready(function () {
       });
 
       $("#render-playlist").slick({
-        slidesToShow: 4,
+        slidesToShow: 6,
         autoplay: true,
         autoplaySpeed: 3000,
         variableWidth: false,
+        slidesToScroll: 1,
         responsive: [
+          {
+            breakpoint: 1440,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 1,
+              infinite: true,
+              variableWidth: false,
+            },
+          },
           {
             breakpoint: 768,
             settings: {
@@ -150,17 +163,14 @@ $(document).ready(function () {
               variableWidth: false,
             },
           },
-          {
-            breakpoint: 2240,
-            settings: {
-              slidesToShow: 6,
-              slidesToScroll: 1,
-              infinite: true,
-              variableWidth: false,
-            },
-          },
+
         ],
       });
+      } else {
+        $("#render-artist").slick('unslick')
+
+        $("#render-playlist").slick('unslick')
+      }
 
       $(".container-default .slick-next.slick-arrow").addClass(
         "position-absolute"
@@ -481,16 +491,16 @@ $(document).ready(function () {
       let songs = Home.PlaylistSong[1].map((song, index) => {
         return `
           <div class="song row no-gutters padt8 padb8 align-items-center" data-index="${index}" data-playlist="1">
-            <div class="col-lg-6 col-sm-6">
-                <div class="row no-gutters align-items-center">
+            <div class="song-wrapper col-lg-6 col-sm-6">
+                <div class="song-wrapper-primary row no-gutters align-items-center">
                     <div class="col-lg-1 col-sm-1 ">
                         <i class="bi bi-music-note-beamed ml8 fz-14 song__icon-note"></i>
                     </div>
                     <div class="col-lg-1 col-sm-1 position-relative">
                         <img class="song__img" src="${song.image}" alt="">
-                        <div class="song__icon position-absolute d-flex">
+                        <div class="song__icon position-absolute">
                             <img src="../Content/image/Icon/icon-playing.gif" class="song__icon-playing playing d-none">
-                            <i class="bi bi-play-fill fz-20 ml10 mt8 song__icon-pause d-none text-white"></i>
+                            <i class="bi bi-play-fill fz-20 song__icon-pause d-none text-white"></i>
                         </div>
                     </div>
                     <div class="col-lg-1 col-sm-1"></div>
@@ -737,16 +747,16 @@ $(document).ready(function () {
       let songs = Home.PlaylistSong[playlist].map((song, index) => {
         return `
         <div class="song row no-gutters padt8 padb8" data-index="${index}" data-playlist="${song.dataPlaylist}">
-          <div class="col-lg-6 col-sm-6">
-              <div class="row no-gutters align-items-center">
+          <div class="song-wrapper-default col-lg-6 col-sm-6">
+              <div class=" row no-gutters align-items-center">
                   <div class="col-lg-1 col-sm-1">
                       <i class="bi bi-music-note-beamed ml8 fz-14 song__icon-note"></i>
                   </div>
                   <div class="is-40px col-lg-2 col-sm-2 position-relative">
                       <img class="song__img" src="${song.image}" alt="">
-                      <div class="song__icon position-absolute d-flex">
+                      <div class="song__icon position-absolute">
                           <img src="../Content/image/Icon/icon-playing.gif" class="song__icon-playing playing d-none">
-                          <i class="bi bi-play-fill fz-20 song__icon-pause text-white d-none mt5 ml10"></i>
+                          <i class="bi bi-play-fill fz-20 song__icon-pause text-white d-none"></i>
                       </div>
                   </div>                                                                                     
                   <div class="col-lg-9 col-sm-9 ml8">
@@ -1348,6 +1358,7 @@ $(document).ready(function () {
       $(".playlist__card")
         .unbind()
         .click(function (e) {
+          e.preventDefault();
           let $this = $(this);
           let $dataPlaylist = $this.data("playlist");
           let $img = $this.find(".playlist__div-img");
@@ -1397,6 +1408,8 @@ $(document).ready(function () {
 
           if (tapPersonal) {
             $(".container__right-personal").addClass("active");
+            _this.UsingSlickSliderPlugin(false);
+            _this.UsingSlickSliderPlugin(true);
             _this.renderMyPlayListSongs();
             _this.handleMp3Event();
           } else if (tapExplore) {
@@ -1506,13 +1519,24 @@ $(document).ready(function () {
       $(".MV__item").unbind().click(function(e) {
         const _this = this;
         const container = $(_this).find(".MV__item-dataUrl");
-        const iframeUrl = $(container).data("url");
-        $(".iframe-mv").attr("src", iframeUrl)
+        const dataUrl = $(container).data("url");
+
+        const iframeUrl =  $(".iframe-mv").attr("src")
+
         $(".modal-iframe").addClass("open");
+
+        if(iframeUrl === "") {
+          $(".iframe-mv").attr("src", dataUrl);
+        } else if(iframeUrl === dataUrl) {
+          console.log("continue iframe");
+        } else {
+          $(".iframe-mv").attr("src", dataUrl);
+        }
       })
+
+      // remove open modal iframe
       $(".modal-iframe").unbind().click(function(e) {
         $(".modal-iframe").removeClass("open");
-
       })
     },
   };
