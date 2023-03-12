@@ -3,7 +3,7 @@ $(document).ready(function () {
   let Mp3Player = {
     init: function () {
       this.renderElement();
-      
+
       this.cssHtml();
 
       this.handleEventDOM();
@@ -46,7 +46,7 @@ $(document).ready(function () {
       // render maybe you care playlist
       this.renderMaybeYouCarePlaylist();
 
-      // render explore carousel 
+      // render explore carousel
       this.renderExploreCarousel();
 
       // render explore suggest playlist
@@ -91,88 +91,179 @@ $(document).ready(function () {
       this.swapTapSideBar();
 
       // make slide carousel for explore slider
-      this.exploreSliderCarousel();
+      // this.exploreSliderCarousel();
 
-      // open modal iframe when click to MV
+      // open modal iframe when click to Music video
       this.openModalIframe();
     },
     handleWithPluin: function () {
       // slick
-      this.UsingSlickSliderPlugin(true);
+      this.UsingSlickSliderPlugin("all");
     },
-    UsingSlickSliderPlugin: function (boolean) {
+    UsingSlickSliderPlugin: function (tab) {
+      if (!tab) {
+        console.log("Tab not defind");
+        return;
+      }
 
-      if(boolean) {
-        
-      $("#render-artist").slick({
-        slidesToShow: 5,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        variableWidth: false,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              infinite: true,
-              variableWidth: false,
-            },
-          },
-          {
-            breakpoint: 414,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 1,
-              infinite: true,
-              variableWidth: false,
-            },
-          },
-        ],
-      });
+      switch (tab) {
+        case "all":
+          $("#render-artist").slick({
+            slidesToShow: 5,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            variableWidth: false,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+              {
+                breakpoint: 414,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+            ],
+          });
 
-      $("#render-playlist").slick({
-        slidesToShow: 6,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        variableWidth: false,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1440,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 1,
-              infinite: true,
-              variableWidth: false,
-            },
-          },
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              infinite: true,
-              variableWidth: false,
-            },
-          },
-          {
-            breakpoint: 414,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 1,
-              infinite: true,
-              variableWidth: false,
-            },
-          },
+          $("#render-playlist").slick({
+            slidesToShow: 6,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            variableWidth: false,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1440,
+                settings: {
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+              {
+                breakpoint: 414,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+            ],
+          });
 
-        ],
-      });
-      } else {
-        $("#render-artist").slick('unslick')
+          $("#explore-carousel").slick({
+            slidesToShow: 3,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            variableWidth: false,
+            slidesToScroll: 1,
+          });
+          break;
+        case "personal":
+          $("#render-artist").slick("unslick");
 
-        $("#render-playlist").slick('unslick')
+          $("#render-playlist").slick("unslick");
+
+          $("#render-artist").slick({
+            slidesToShow: 5,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            variableWidth: false,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+              {
+                breakpoint: 414,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+            ],
+          });
+
+          $("#render-playlist").slick({
+            slidesToShow: 6,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            variableWidth: false,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1440,
+                settings: {
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+              {
+                breakpoint: 414,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  variableWidth: false,
+                },
+              },
+            ],
+          });
+          break;
+        case "explore":
+          $("#explore-carousel").slick("unslick");
+
+          $("#explore-carousel").slick({
+            slidesToShow: 3,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            variableWidth: false,
+            slidesToScroll: 1,
+          });
+          break;
+        default:
+          console.log("invalid tab");
       }
 
       $(".container-default .slick-next.slick-arrow").addClass(
@@ -451,11 +542,14 @@ $(document).ready(function () {
     },
 
     // render
-    renderTabSideBar: function() {
-      
+    renderTabSideBar: function () {
       let results = Home.tabSidebar.map((result) => {
         return ` 
-        <li class="list-item ${result.tab} tap-sideBar d-flex align-items-center ${result.isActive ? 'active' : ''} padt8 padb8 padr28 padl28"
+        <li class="list-item ${
+          result.tab
+        } tap-sideBar d-flex align-items-center ${
+          result.isActive ? "active" : ""
+        } padt8 padb8 padr28 padl28"
                                 aria-current="true">
                                 <i class="${result.icon}"></i>
                                 <h3 class="fz-13 ml8">${result.content}</h3>
@@ -465,10 +559,12 @@ $(document).ready(function () {
 
       $("#tabSidebar-1").html(results.join(""));
     },
-    renderTabSideBar2: function() {
+    renderTabSideBar2: function () {
       let results = Home.tabSidebar2.map((result) => {
         return ` 
-        <li class="list-item tab-personal tap-sideBar d-flex align-items-center ${result.isActive ? 'active' : ''} padt8 padb8 padr28 padl28"
+        <li class="list-item tab-personal tap-sideBar d-flex align-items-center ${
+          result.isActive ? "active" : ""
+        } padt8 padb8 padr28 padl28"
                                 aria-current="true">
                                 <i class="${result.icon}"></i>
                                 <h3 class="fz-13 ml8">${result.content}</h3>
@@ -1093,11 +1189,11 @@ $(document).ready(function () {
         $(".explore__musicForDays-title").html("Cuối Tuần Lên Nhạc");
       }
     },
-    renderExploreCarousel: function() {
+    renderExploreCarousel: function () {
       let htmls = Home.ExploreCarousel.map((item, index) => {
         return `
         <div
-        class="explore__slider-item col-lg-4"
+        class="explore__slider-item"
         data-number="${index}"
         data-actived="true"
         data-numerical="first"
@@ -1107,12 +1203,11 @@ $(document).ready(function () {
           alt=""
         />
       </div>
-        `
+        `;
       });
 
       $("#explore-carousel").html(htmls.join(""));
     },
-
 
     // function
     getDataTheme: function () {
@@ -1252,9 +1347,19 @@ $(document).ready(function () {
     loadCurrentSong: function (playlist) {
       $(".song").removeClass("active");
 
+      // let song = $(`.song[data-playlist="${this.currentPlaylistIndex}"]`)[
+      //   this.currentIndex
+      // ]
+      
+      // if( song ) {
+      //   song.classList.add("active")
+      // } else {
+      //   console.log("het bai")
+      // }
+
       $(`.song[data-playlist="${this.currentPlaylistIndex}"]`)[
         this.currentIndex
-      ].classList.add("active");
+      ].classList.add("active")
 
       $("#player__img").attr(
         "src",
@@ -1431,74 +1536,87 @@ $(document).ready(function () {
 
           if (tapPersonal) {
             $(".container__right-personal").addClass("active");
-            // remove slick from start scene
-            _this.UsingSlickSliderPlugin(false);
-
             // add slick to fix hidden content and unable click event
-            _this.UsingSlickSliderPlugin(true);
+            _this.UsingSlickSliderPlugin("personal");
             _this.openPlaylistInPlaylistTrack();
             _this.renderMyPlayListSongs();
             _this.handleMp3Event();
           } else if (tapExplore) {
             $(".container__right-explore").addClass("active");
+            _this.UsingSlickSliderPlugin("explore");
           }
         });
     },
-    exploreSliderCarousel: function() {
-      $(".explore__slider-next").unbind().click(function (e) {
-        Remote(1, ".explore__slider", ".explore__slider-item");
-      });
+    // exploreSliderCarousel: function () {
+    //   $(".explore__slider-next")
+    //     .unbind()
+    //     .click(function (e) {
+    //       Remote(1, ".explore__slider", ".explore__slider-item");
+    //     });
 
-      $(".explore__slider-prev").unbind().click(function (e) {
-        Remote(0, ".explore__slider", ".explore__slider-item");
-      });
+    //   $(".explore__slider-prev")
+    //     .unbind()
+    //     .click(function (e) {
+    //       Remote(0, ".explore__slider", ".explore__slider-item");
+    //     });
 
-      function Remote(data, carouselElement, slideElement) {
-        
-        if(data == 1) {
-          let nextItem = $(carouselElement).find($(`${slideElement}[data-numerical="next"]`));
-          let dataNumberOfNextItem = $(nextItem).data("number");
-          let slideLength = $(slideElement).length;
-          let temp = dataNumberOfNextItem + 1;
-          let secondTemp = dataNumberOfNextItem - 2;
+    //   function Remote(data, carouselElement, slideElement) {
+    //     if (data == 1) {
+    //       let nextItem = $(carouselElement).find(
+    //         $(`${slideElement}[data-numerical="next"]`)
+    //       );
+    //       let dataNumberOfNextItem = $(nextItem).data("number");
+    //       let slideLength = $(slideElement).length;
+    //       let temp = dataNumberOfNextItem + 1;
+    //       let secondTemp = dataNumberOfNextItem - 2;
 
-          // swap caarourel to the first slide when next to the last slide
-          if(slideLength < temp) {
-            dataNumberOfNextItem = 1;
-            let loopToFirst = $(carouselElement).find($(`${slideElement}[data-number="${dataNumberOfNextItem}"]`));
-            $(loopToFirst).attr("data-numerical", "next");
-          } 
+    //       // swap caarourel to the first slide when next to the last slide
+    //       if (slideLength < temp) {
+    //         dataNumberOfNextItem = 1;
+    //         let loopToFirst = $(carouselElement).find(
+    //           $(`${slideElement}[data-number="${dataNumberOfNextItem}"]`)
+    //         );
+    //         $(loopToFirst).attr("data-numerical", "next");
+    //       }
 
-          let firstItem = $(carouselElement).find($(`${slideElement}[data-numerical="first"]`));
-          let lastItem = $(carouselElement).find($(`${slideElement}[data-numerical="last"]`));
+    //       let firstItem = $(carouselElement).find(
+    //         $(`${slideElement}[data-numerical="first"]`)
+    //       );
+    //       let lastItem = $(carouselElement).find(
+    //         $(`${slideElement}[data-numerical="last"]`)
+    //       );
 
-          // catch the between slide when second temp is minus
-          if(secondTemp < 0) {
-            secondTemp = 5;
-          } else if(secondTemp == 0) {
-            secondTemp = 6;
-          }
+    //       // catch the between slide when second temp is minus
+    //       if (secondTemp < 0) {
+    //         secondTemp = 5;
+    //       } else if (secondTemp == 0) {
+    //         secondTemp = 6;
+    //       }
 
-          let betweenItem = $(carouselElement).find($(`${slideElement}[data-number="${secondTemp}"]`));
-          let swapNextItem = $(carouselElement).find($(`${slideElement}[data-number="${temp}"]`));
+    //       let betweenItem = $(carouselElement).find(
+    //         $(`${slideElement}[data-number="${secondTemp}"]`)
+    //       );
+    //       let swapNextItem = $(carouselElement).find(
+    //         $(`${slideElement}[data-number="${temp}"]`)
+    //       );
 
-          $(firstItem).attr("data-numerical", "prev");
-          $(firstItem).attr("data-actived", "false");
-          
-          $(lastItem).attr("data-numerical", "none");
-          $(lastItem).attr("data-actived", "true");
+    //       $(firstItem).attr("data-numerical", "prev");
+    //       $(firstItem).attr("data-actived", "false");
 
-          $(nextItem).attr("data-numerical", "last");
-          $(nextItem).attr("data-actived", "true");
+    //       $(lastItem).attr("data-numerical", "none");
+    //       $(lastItem).attr("data-actived", "true");
 
-          $(swapNextItem).attr("data-numerical", "next");
-          $(swapNextItem).attr("data-actived", "false");
+    //       $(nextItem).attr("data-numerical", "last");
+    //       $(nextItem).attr("data-actived", "true");
 
-          $(betweenItem).attr("data-numerical", "first");
-          $(betweenItem).attr("data-actived", "true");
-        }
-      };
-    },
+    //       $(swapNextItem).attr("data-numerical", "next");
+    //       $(swapNextItem).attr("data-actived", "false");
+
+    //       $(betweenItem).attr("data-numerical", "first");
+    //       $(betweenItem).attr("data-actived", "true");
+    //     }
+    //   }
+    // },
     playSong: function () {
       let activeSong = $(".song.active");
 
@@ -1542,29 +1660,33 @@ $(document).ready(function () {
       $(".song__icon-pause").addClass("d-none");
       $(".song__icon-playing").addClass("d-none");
     },
-    openModalIframe: function() {
-      $(".MV__item").unbind().click(function(e) {
-        const _this = this;
-        const container = $(_this).find(".MV__item-dataUrl");
-        const dataUrl = $(container).data("url");
+    openModalIframe: function () {
+      $(".MV__item")
+        .unbind()
+        .click(function (e) {
+          const _this = this;
+          const container = $(_this).find(".MV__item-dataUrl");
+          const dataUrl = $(container).data("url");
 
-        const iframeUrl =  $(".iframe-mv").attr("src")
+          const iframeUrl = $(".iframe-mv").attr("src");
 
-        $(".modal-iframe").addClass("open");
+          $(".modal-iframe").addClass("open");
 
-        if(iframeUrl === "") {
-          $(".iframe-mv").attr("src", dataUrl);
-        } else if(iframeUrl === dataUrl) {
-          console.log("continue iframe");
-        } else {
-          $(".iframe-mv").attr("src", dataUrl);
-        }
-      })
+          if (iframeUrl === "") {
+            $(".iframe-mv").attr("src", dataUrl);
+          } else if (iframeUrl === dataUrl) {
+            console.log("continue iframe");
+          } else {
+            $(".iframe-mv").attr("src", dataUrl);
+          }
+        });
 
       // remove open modal iframe
-      $(".modal-iframe").unbind().click(function(e) {
-        $(".modal-iframe").removeClass("open");
-      })
+      $(".modal-iframe")
+        .unbind()
+        .click(function (e) {
+          $(".modal-iframe").removeClass("open");
+        });
     },
   };
 

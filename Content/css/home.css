@@ -357,6 +357,8 @@ body {
 
 .container-default #carePlaylist .slick-next.slick-arrow::before,
 .container-default #carePlaylist .slick-prev.slick-arrow::before,
+.container-default #container__right #explore .slick-next.slick-arrow::before,
+.container-default #container__right #explore .slick-prev.slick-arrow::before,
 .container-default .container__right-body #library #artist .slick-next.slick-arrow::before,
 .container-default .container__right-body #library #artist .slick-prev.slick-arrow::before,
 .container-default .container__right-body #library #playlist .slick-next.slick-arrow::before,
@@ -955,6 +957,10 @@ body {
   z-index: 10;
   background-color: hsla(0,0%,100%,.15);
   border-radius: 50%;
+}
+
+#explore .explore__slider #explore-carousel .slick-slide {
+  margin: 0 12px;
 }
 
 #explore .explore__slider .explore__slider-next {
