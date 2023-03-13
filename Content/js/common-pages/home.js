@@ -8,11 +8,14 @@ $(document).ready(function () {
 
       this.handleWithPluin();
 
+      this.updatePlaylistLocalStorage(1);
+      
       this.handleEventDOM();
 
       this.definePropertises();
 
       this.loadCurrentSong(1);
+
 
       this.handleMp3Event();
     },
