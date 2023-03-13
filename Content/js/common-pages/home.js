@@ -1350,7 +1350,7 @@ $(document).ready(function () {
       // let song = $(`.song[data-playlist="${this.currentPlaylistIndex}"]`)[
       //   this.currentIndex
       // ]
-      
+
       // if( song ) {
       //   song.classList.add("active")
       // } else {
@@ -1359,7 +1359,7 @@ $(document).ready(function () {
 
       $(`.song[data-playlist="${this.currentPlaylistIndex}"]`)[
         this.currentIndex
-      ].classList.add("active")
+      ].classList.add("active");
 
       $("#player__img").attr(
         "src",
