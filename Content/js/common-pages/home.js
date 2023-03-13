@@ -6,9 +6,9 @@ $(document).ready(function () {
 
       this.cssHtml();
 
-      this.handleEventDOM();
-
       this.handleWithPluin();
+
+      this.handleEventDOM();
 
       this.definePropertises();
 
@@ -183,73 +183,73 @@ $(document).ready(function () {
           break;
         case "personal":
           $("#render-artist").slick("unslick");
-
+  
           $("#render-playlist").slick("unslick");
+            $("#render-artist").slick({
+              slidesToShow: 5,
+              autoplay: true,
+              autoplaySpeed: 3000,
+              variableWidth: false,
+              slidesToScroll: 1,
+              responsive: [
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    variableWidth: false,
+                  },
+                },
+                {
+                  breakpoint: 414,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    variableWidth: false,
+                  },
+                },
+              ],
+            });
+  
+            $("#render-playlist").slick({
+              slidesToShow: 6,
+              autoplay: true,
+              autoplaySpeed: 3000,
+              variableWidth: false,
+              slidesToScroll: 1,
+              responsive: [
+                {
+                  breakpoint: 1440,
+                  settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    variableWidth: false,
+                  },
+                },
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    variableWidth: false,
+                  },
+                },
+                {
+                  breakpoint: 414,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    variableWidth: false,
+                  },
+                },
+              ],
+            });
 
-          $("#render-artist").slick({
-            slidesToShow: 5,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            variableWidth: false,
-            slidesToScroll: 1,
-            responsive: [
-              {
-                breakpoint: 768,
-                settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 1,
-                  infinite: true,
-                  variableWidth: false,
-                },
-              },
-              {
-                breakpoint: 414,
-                settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 1,
-                  infinite: true,
-                  variableWidth: false,
-                },
-              },
-            ],
-          });
-
-          $("#render-playlist").slick({
-            slidesToShow: 6,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            variableWidth: false,
-            slidesToScroll: 1,
-            responsive: [
-              {
-                breakpoint: 1440,
-                settings: {
-                  slidesToShow: 4,
-                  slidesToScroll: 1,
-                  infinite: true,
-                  variableWidth: false,
-                },
-              },
-              {
-                breakpoint: 768,
-                settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 1,
-                  infinite: true,
-                  variableWidth: false,
-                },
-              },
-              {
-                breakpoint: 414,
-                settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 1,
-                  infinite: true,
-                  variableWidth: false,
-                },
-              },
-            ],
-          });
           break;
         case "explore":
           $("#explore-carousel").slick("unslick");
@@ -477,6 +477,7 @@ $(document).ready(function () {
           _this.isPlaying = true;
           _this.currentIndex = dataIndex;
           _this.currentPlaylistIndex = $dataPlaylist;
+          _this.updatePlaylistLocalStorage(_this.currentPlaylistIndex);
           _this.loadCurrentSong(_this.currentPlaylistIndex);
           _this.handleMp3Event();
 
@@ -1346,37 +1347,27 @@ $(document).ready(function () {
     },
     loadCurrentSong: function (playlist) {
       $(".song").removeClass("active");
-
-      // let song = $(`.song[data-playlist="${this.currentPlaylistIndex}"]`)[
-      //   this.currentIndex
-      // ]
+      const api = JSON.parse(localStorage.getItem("DH_playlist"));
       
-      // if( song ) {
-      //   song.classList.add("active")
-      // } else {
-      //   console.log("het bai")
-      // }
-
       $(`.song[data-playlist="${this.currentPlaylistIndex}"]`)[
-        this.currentIndex
-      ].classList.add("active")
-
+          this.currentIndex
+        ].classList.add("active");
       $("#player__img").attr(
         "src",
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].image}`
+        `${api[this.currentIndex].image}`
       );
       $(".player__desc-name h3").html(
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].name}`
+        `${api[this.currentIndex].name}`
       );
       $(".player__desc-name #author").html(
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].author}`
+        `${api[this.currentIndex].author}`
       );
       $("#audio").attr(
         "src",
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].source}`
+        `${api[this.currentIndex].source}`
       );
       $(".time-end p").html(
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].duration}`
+        `${api[this.currentIndex].duration}`
       );
     },
     playListSong: function () {
@@ -1503,6 +1494,8 @@ $(document).ready(function () {
             "active"
           );
           $(".track__name h3").html($namePlaylist);
+
+
         });
 
       $("#player__img")
@@ -1547,76 +1540,6 @@ $(document).ready(function () {
           }
         });
     },
-    // exploreSliderCarousel: function () {
-    //   $(".explore__slider-next")
-    //     .unbind()
-    //     .click(function (e) {
-    //       Remote(1, ".explore__slider", ".explore__slider-item");
-    //     });
-
-    //   $(".explore__slider-prev")
-    //     .unbind()
-    //     .click(function (e) {
-    //       Remote(0, ".explore__slider", ".explore__slider-item");
-    //     });
-
-    //   function Remote(data, carouselElement, slideElement) {
-    //     if (data == 1) {
-    //       let nextItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-numerical="next"]`)
-    //       );
-    //       let dataNumberOfNextItem = $(nextItem).data("number");
-    //       let slideLength = $(slideElement).length;
-    //       let temp = dataNumberOfNextItem + 1;
-    //       let secondTemp = dataNumberOfNextItem - 2;
-
-    //       // swap caarourel to the first slide when next to the last slide
-    //       if (slideLength < temp) {
-    //         dataNumberOfNextItem = 1;
-    //         let loopToFirst = $(carouselElement).find(
-    //           $(`${slideElement}[data-number="${dataNumberOfNextItem}"]`)
-    //         );
-    //         $(loopToFirst).attr("data-numerical", "next");
-    //       }
-
-    //       let firstItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-numerical="first"]`)
-    //       );
-    //       let lastItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-numerical="last"]`)
-    //       );
-
-    //       // catch the between slide when second temp is minus
-    //       if (secondTemp < 0) {
-    //         secondTemp = 5;
-    //       } else if (secondTemp == 0) {
-    //         secondTemp = 6;
-    //       }
-
-    //       let betweenItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-number="${secondTemp}"]`)
-    //       );
-    //       let swapNextItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-number="${temp}"]`)
-    //       );
-
-    //       $(firstItem).attr("data-numerical", "prev");
-    //       $(firstItem).attr("data-actived", "false");
-
-    //       $(lastItem).attr("data-numerical", "none");
-    //       $(lastItem).attr("data-actived", "true");
-
-    //       $(nextItem).attr("data-numerical", "last");
-    //       $(nextItem).attr("data-actived", "true");
-
-    //       $(swapNextItem).attr("data-numerical", "next");
-    //       $(swapNextItem).attr("data-actived", "false");
-
-    //       $(betweenItem).attr("data-numerical", "first");
-    //       $(betweenItem).attr("data-actived", "true");
-    //     }
-    //   }
-    // },
     playSong: function () {
       let activeSong = $(".song.active");
 
@@ -1687,6 +1610,12 @@ $(document).ready(function () {
         .click(function (e) {
           $(".modal-iframe").removeClass("open");
         });
+    },
+    showToast: function() {
+      $('#toast-overSong').toast('show')
+    },
+    updatePlaylistLocalStorage: function(data) {
+      localStorage.setItem("DH_playlist", JSON.stringify(Home.PlaylistSong[data]));
     },
   };
 
