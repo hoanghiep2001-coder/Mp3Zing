@@ -36,6 +36,15 @@ html {
   height: 100%;
 }
 
+
+html {
+  overflow: hidden;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
 button {
   outline: none;
   border: none;
@@ -181,10 +190,8 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 100%;
 }
 
-/* .song-wrapper {
-  height: 40px;
+.toast {
+  position: fixed;
+  top: 100px;
+  right: 20px;
 }
-
-.song-wrapper-primary {
-  height: 100%;
-} */

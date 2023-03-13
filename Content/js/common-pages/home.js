@@ -6,9 +6,11 @@ $(document).ready(function () {
 
       this.cssHtml();
 
-      this.handleEventDOM();
-
       this.handleWithPluin();
+
+      this.updatePlaylistLocalStorage(1);
+
+      this.handleEventDOM();
 
       this.definePropertises();
 
@@ -185,7 +187,6 @@ $(document).ready(function () {
           $("#render-artist").slick("unslick");
 
           $("#render-playlist").slick("unslick");
-
           $("#render-artist").slick({
             slidesToShow: 5,
             autoplay: true,
@@ -250,6 +251,7 @@ $(document).ready(function () {
               },
             ],
           });
+
           break;
         case "explore":
           $("#explore-carousel").slick("unslick");
@@ -477,6 +479,7 @@ $(document).ready(function () {
           _this.isPlaying = true;
           _this.currentIndex = dataIndex;
           _this.currentPlaylistIndex = $dataPlaylist;
+          _this.updatePlaylistLocalStorage(_this.currentPlaylistIndex);
           _this.loadCurrentSong(_this.currentPlaylistIndex);
           _this.handleMp3Event();
 
@@ -1357,27 +1360,23 @@ $(document).ready(function () {
       //   console.log("het bai")
       // }
 
-      $(`.song[data-playlist="${this.currentPlaylistIndex}"]`)[
+      const api = JSON.parse(localStorage.getItem("DH_playlist"));
+      const checkSongIndex = api[this.currentIndex + 1];
+      let song = $(`.song[data-playlist="${this.currentPlaylistIndex}"]`)[
         this.currentIndex
-      ].classList.add("active");
+      ];
+      if (song) {
+        $(song).addClass("active");
+      } else if (!api[checkSongIndex]) {
+        console.log("ko");
+      }
+      // .classList.add("active");
 
-      $("#player__img").attr(
-        "src",
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].image}`
-      );
-      $(".player__desc-name h3").html(
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].name}`
-      );
-      $(".player__desc-name #author").html(
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].author}`
-      );
-      $("#audio").attr(
-        "src",
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].source}`
-      );
-      $(".time-end p").html(
-        `${Mp3Player.currentPlaylist[playlist][this.currentIndex].duration}`
-      );
+      $("#player__img").attr("src", `${api[this.currentIndex].image}`);
+      $(".player__desc-name h3").html(`${api[this.currentIndex].name}`);
+      $(".player__desc-name #author").html(`${api[this.currentIndex].author}`);
+      $("#audio").attr("src", `${api[this.currentIndex].source}`);
+      $(".time-end p").html(`${api[this.currentIndex].duration}`);
     },
     playListSong: function () {
       let _this = this;
@@ -1547,76 +1546,6 @@ $(document).ready(function () {
           }
         });
     },
-    // exploreSliderCarousel: function () {
-    //   $(".explore__slider-next")
-    //     .unbind()
-    //     .click(function (e) {
-    //       Remote(1, ".explore__slider", ".explore__slider-item");
-    //     });
-
-    //   $(".explore__slider-prev")
-    //     .unbind()
-    //     .click(function (e) {
-    //       Remote(0, ".explore__slider", ".explore__slider-item");
-    //     });
-
-    //   function Remote(data, carouselElement, slideElement) {
-    //     if (data == 1) {
-    //       let nextItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-numerical="next"]`)
-    //       );
-    //       let dataNumberOfNextItem = $(nextItem).data("number");
-    //       let slideLength = $(slideElement).length;
-    //       let temp = dataNumberOfNextItem + 1;
-    //       let secondTemp = dataNumberOfNextItem - 2;
-
-    //       // swap caarourel to the first slide when next to the last slide
-    //       if (slideLength < temp) {
-    //         dataNumberOfNextItem = 1;
-    //         let loopToFirst = $(carouselElement).find(
-    //           $(`${slideElement}[data-number="${dataNumberOfNextItem}"]`)
-    //         );
-    //         $(loopToFirst).attr("data-numerical", "next");
-    //       }
-
-    //       let firstItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-numerical="first"]`)
-    //       );
-    //       let lastItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-numerical="last"]`)
-    //       );
-
-    //       // catch the between slide when second temp is minus
-    //       if (secondTemp < 0) {
-    //         secondTemp = 5;
-    //       } else if (secondTemp == 0) {
-    //         secondTemp = 6;
-    //       }
-
-    //       let betweenItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-number="${secondTemp}"]`)
-    //       );
-    //       let swapNextItem = $(carouselElement).find(
-    //         $(`${slideElement}[data-number="${temp}"]`)
-    //       );
-
-    //       $(firstItem).attr("data-numerical", "prev");
-    //       $(firstItem).attr("data-actived", "false");
-
-    //       $(lastItem).attr("data-numerical", "none");
-    //       $(lastItem).attr("data-actived", "true");
-
-    //       $(nextItem).attr("data-numerical", "last");
-    //       $(nextItem).attr("data-actived", "true");
-
-    //       $(swapNextItem).attr("data-numerical", "next");
-    //       $(swapNextItem).attr("data-actived", "false");
-
-    //       $(betweenItem).attr("data-numerical", "first");
-    //       $(betweenItem).attr("data-actived", "true");
-    //     }
-    //   }
-    // },
     playSong: function () {
       let activeSong = $(".song.active");
 
@@ -1649,6 +1578,7 @@ $(document).ready(function () {
 
       $(".track__cd").addClass("is-rollback");
       $(".track__cd").removeClass("is-animated");
+      $(".song__icon-playing").addClass("d-none");
       $(".track__controls-play").removeClass("d-none");
       $(".track__controls-pause").addClass("d-none");
       $("#track__controls-desc").html("TIẾP TỤC PHÁT");
@@ -1687,6 +1617,15 @@ $(document).ready(function () {
         .click(function (e) {
           $(".modal-iframe").removeClass("open");
         });
+    },
+    showToast: function () {
+      $("#toast-overSong").toast("show");
+    },
+    updatePlaylistLocalStorage: function (data) {
+      localStorage.setItem(
+        "DH_playlist",
+        JSON.stringify(Home.PlaylistSong[data])
+      );
     },
   };
 
